@@ -642,7 +642,8 @@
         "z": "07f37a1e5d3a1867",
         "name": "shutdown ",
         "links": [
-            "36d935ee5e7180dc"
+            "36d935ee5e7180dc",
+            "6b16b14c8a6aa576"
         ],
         "x": 195,
         "y": 80,
@@ -1439,9 +1440,7 @@
         "x": 640,
         "y": 500,
         "wires": [
-            [
-                "25b1c36a2434c6bf"
-            ],
+            [],
             [],
             []
         ]
@@ -1529,9 +1528,7 @@
         "x": 640,
         "y": 420,
         "wires": [
-            [
-                "25b1c36a2434c6bf"
-            ],
+            [],
             [],
             []
         ]
@@ -1657,7 +1654,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": ".1",
+        "repeat": ".8",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -1802,5 +1799,173 @@
                 "4bc4f31c86d818fe"
             ]
         ]
+    },
+    {
+        "id": "a707f6233f61de16",
+        "type": "exec",
+        "z": "4af9f079472f0c98",
+        "command": "sudo shutdown now",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 680,
+        "y": 960,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fc3a27844a7bacde",
+        "type": "inject",
+        "z": "4af9f079472f0c98",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 480,
+        "y": 960,
+        "wires": [
+            [
+                "a707f6233f61de16"
+            ]
+        ]
+    },
+    {
+        "id": "596bfa08dcb21f71",
+        "type": "rpi-gpio in",
+        "z": "4af9f079472f0c98",
+        "name": "",
+        "pin": "13",
+        "intype": "down",
+        "debounce": "25",
+        "read": false,
+        "x": 100,
+        "y": 960,
+        "wires": [
+            [
+                "407683c5976e6efb"
+            ]
+        ]
+    },
+    {
+        "id": "407683c5976e6efb",
+        "type": "button-events",
+        "z": "4af9f079472f0c98",
+        "name": "",
+        "outputs": 3,
+        "inputField": "payload",
+        "inputFieldType": "msg",
+        "outputField": "payload",
+        "outputFieldType": "msg",
+        "downValue": "1",
+        "downValueType": "num",
+        "upValue": "0",
+        "upValueType": "num",
+        "idleValue": "1",
+        "clickedInterval": 200,
+        "pressedInterval": 200,
+        "debounceInterval": 30,
+        "events": [
+            {
+                "type": "pressed"
+            },
+            {
+                "type": "double_clicked"
+            },
+            {
+                "type": "clicked"
+            }
+        ],
+        "x": 280,
+        "y": 960,
+        "wires": [
+            [
+                "a707f6233f61de16"
+            ],
+            [
+                "07740e744e9716c7"
+            ],
+            [
+                "6b16b14c8a6aa576"
+            ]
+        ]
+    },
+    {
+        "id": "07740e744e9716c7",
+        "type": "exec",
+        "z": "4af9f079472f0c98",
+        "command": "sudo reboot",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 650,
+        "y": 1020,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1f88b4f777ad112d",
+        "type": "inject",
+        "z": "4af9f079472f0c98",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 480,
+        "y": 1020,
+        "wires": [
+            [
+                "07740e744e9716c7"
+            ]
+        ]
+    },
+    {
+        "id": "6b16b14c8a6aa576",
+        "type": "link out",
+        "z": "4af9f079472f0c98",
+        "name": "gpio 27 click",
+        "links": [
+            "1ab1057ab76c2dd1"
+        ],
+        "x": 305,
+        "y": 1040,
+        "wires": []
     }
 ]
